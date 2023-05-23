@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 @ControllerAdvice
 public class ExceptionHandler {
     @org.springframework.web.bind.annotation.ExceptionHandler(UserManipulationException.class)
-    public ResponseEntity<?> handleUserManipulationException(UserManipulationException ex) {
+    public ResponseEntity<ExceptionResponse> handleUserManipulationException(UserManipulationException ex) {
         return ResponseEntity
                 .badRequest()
                 .body(new ExceptionResponse(ex.getMessage()));
     }
 
     @org.springframework.web.bind.annotation.ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<?> handleValidationException() {
+    public ResponseEntity<ExceptionResponse> handleValidationException() {
         return ResponseEntity
                 .badRequest()
                 .body(new ExceptionResponse("ALL_FIELDS_ARE_REQUIRED"));

@@ -15,24 +15,24 @@ public class UserController {
     private final UserService userService;
 
     @RequestMapping(value = "/find", params = "id", method = RequestMethod.GET)
-    public ResponseEntity<?> findUserById(@RequestParam Long id){
+    public ResponseEntity<User> findUserById(@RequestParam Long id){
         User user = userService.findUserById(id);
         return ResponseEntity.ok(user);
     }
     @RequestMapping(value = "/find", params = {"firstName", "secondName", "patronymic"}, method = RequestMethod.GET)
-    public ResponseEntity<?> findUserByEntireName(@RequestParam String firstName, @RequestParam String secondName, @RequestParam String patronymic){
+    public ResponseEntity<User> findUserByEntireName(@RequestParam String firstName, @RequestParam String secondName, @RequestParam String patronymic){
         User user = userService.findUserByEntireName(firstName, secondName, patronymic);
         return ResponseEntity.ok(user);
     }
 
     @PostMapping("/save")
-    public ResponseEntity<?> saveUser(@Valid @RequestBody User user){
+    public ResponseEntity<User> saveUser(@Valid @RequestBody User user){
         User savedUser = userService.saveUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<?> updateUser(@RequestBody User userChanges){
+    public ResponseEntity<User> updateUser(@RequestBody User userChanges){
         User updatedUser = userService.updateUser(userChanges);
         return ResponseEntity.ok(updatedUser);
     }
