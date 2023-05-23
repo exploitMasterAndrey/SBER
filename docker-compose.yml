@@ -1,0 +1,24 @@
+version: '3'
+services:
+  sber_db:
+    container_name: sber_db
+    image: 'postgres:15'
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+  sber_backend:
+    build: ./
+    container_name: sber_backend
+    depends_on:
+      - sber_db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://sber_db/postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+    ports:
+      - "8080:8080"
