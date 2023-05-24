@@ -160,7 +160,7 @@ class UserControllerTest {
 
     @Test
     @SneakyThrows
-    void whenPutRequestToUpdateUserAndUserIdIsPresented_thenCorrectAnswer() {
+    void whenPatchRequestToUpdateUserAndUserIdIsPresented_thenCorrectAnswer() {
         Mockito.when(userService.updateUser(notNull())).thenReturn(user);
         String expected = objectMapper.writeValueAsString(user);
         Map<String, String> body = Map.of(
@@ -172,7 +172,7 @@ class UserControllerTest {
         );
         String jsonBody = objectMapper.writeValueAsString(body);
 
-        this.mockMvc.perform(put("/api/v1/user/update")
+        this.mockMvc.perform(patch("/api/v1/user/update")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(jsonBody))
                 .andDo(print())
@@ -182,7 +182,7 @@ class UserControllerTest {
 
     @Test
     @SneakyThrows
-    void whenPutRequestToUpdateUserAndUserIdIsNotPresented_thenCorrectAnswer() {
+    void whenPatchRequestToUpdateUserAndUserIdIsNotPresented_thenCorrectAnswer() {
         Mockito.when(userService.updateUser(notNull())).thenThrow(new UserNotFoundException("NO_ID_PRESENTED"));
         String expected = objectMapper.writeValueAsString(new ExceptionHandler.ExceptionResponse("NO_ID_PRESENTED"));
         Map<String, String> body = Map.of(
@@ -190,7 +190,7 @@ class UserControllerTest {
         );
         String jsonBody = objectMapper.writeValueAsString(body);
 
-        this.mockMvc.perform(put("/api/v1/user/update")
+        this.mockMvc.perform(patch("/api/v1/user/update")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(jsonBody))
                 .andDo(print())
